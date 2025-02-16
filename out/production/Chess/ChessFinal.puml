@@ -1,0 +1,13 @@
+@startuml
+
+package logica {
+    package exception{}
+    package interfaz {}
+    package pieza {}
+    package color{}
+}
+package GUI_Chess {
+ package recurso{}
+}
+logica <.. GUI_Chess
+@enduml

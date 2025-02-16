@@ -1,0 +1,118 @@
+@startuml
+
+class Partida{
+    -Jugador: jugadorEnTurno
+    -Jugador: jugadorClaras
+    -Jugador: jugadorObscuras
+    -Tablero: tablero
+    +Jugada: jugada
+    +moverPieza(PosicionDeSalida , PosicionDeLlegada);
+    +alternarJugadores()
+}
+
+class Tablero{
+    +ordenarPiezas()
+    +inicializarCeldas()
+}
+
+class Celda{
+    -pieza: Pieza
+    }
+class Posicion {
+    -fila: int
+    -columna: int
+    +esPosible(posicion)
+    +getFila()
+    +getColumna()
+}
+class Jugador{
+    -nombreDelJugador: String
+    -colorDePiezas: Color
+    +obtenerColor()
+}
+
+abstract class Pieza{
+    -color: Color
+    -celda: Celda
+    +getColor()
+    +setCelda()
+    +borrarCelda(celda)
+    +esMovible(posicionDeSalida, posicionDeLlegada)
+}
+class Posicion{
+    -posicionEnFila: int
+    -posicionEnColumna: int
+
+}
+
+class Peón{
+    -cantidadDeMovimientosRealizados: int
+}
+class Reina{
+
+}
+class Rey{
+    }
+class Alfil{}
+class Caballo{}
+class Torre{}
+
+'Esta clase serviría para realizar actualizaciones en el sistema si se quisiese competir por puntaje
+'ya que en el ajedrez profesional las lógica.piezas tienen un "atributo" de cuanto valen xd
+
+enum Color{
+    +CLARO
+    +OBSCURO
+}
+
+class Jugada{
+    - celdas: celda[][]
+    - jugador: Jugador
+    - tablero: Tablero
+    +moverPieza(posicionDeSalida, posicionDeLlegada)
+    +cumpleCondicionesMinimasParaElMovimiento(celdas, i, j, k, l)
+    +cumpleMovimientosPropiosDeLaPieza(pieza, posicionDeSalida, posicionDeLlegada)
+    +obtenerCeldasDelTablero()
+    +enviarJugador(Jugador jugador)
+}
+
+interface MovibleVertical {
+    +verificarMovimientoVertical(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+    +entrePosicionesNoExistaPieza(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+}
+interface MovibleHorizontal {
+    +verificarMovimientoHorizontal(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+    +entrePosicionesNoExistaPieza(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+}
+interface MovibleDiagonal {
+    +puedeMoverseEnDiagonal(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+}
+interface MovibleEnL {
+    +verificarMovimientoEnL(filaSalida, columnaSalida, filaLlegada, columnaLlegada)
+}
+
+Partida -->"n" Jugada
+Jugada ..> Pieza
+Posicion <- Celda
+Pieza .> Celda
+
+Pieza --> MovibleHorizontal
+Pieza --> MovibleVertical
+Pieza --> MovibleDiagonal
+Pieza --> MovibleEnL
+Tablero <- Partida
+Partida ->"2" Jugador
+Pieza <|-- Peón
+Pieza <|-- Reina
+Pieza <|-- Rey
+Pieza<|-- Alfil
+Pieza <|-- Torre
+Pieza <|-- Caballo
+Pieza -> Color
+Jugador ---> Color
+Celda -> Pieza
+Celda "[8][8]"<- Tablero
+
+
+
+@enduml

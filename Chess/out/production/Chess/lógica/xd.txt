@@ -1,0 +1,66 @@
+@Override
+    public ArrayList<Posicion> obtenerPosicionesPosibles(Posicion posiciónDeLlegada) throws ExcepcionUbicacionFueraDeRango {
+        Integer filaDeLlegada = posiciónDeLlegada.getFila();
+        Integer columnaDeLlegada = posiciónDeLlegada.getColumna();
+        ArrayList<Posicion> posicionesPosibles = new ArrayList<>();
+        posicionesPosibles.addAll(obtenerPosicionesPosiblesHorizontales(filaDeLlegada, columnaDeLlegada));
+        posicionesPosibles.addAll(obtenerPosicionesPosiblesVerticales(filaDeLlegada, columnaDeLlegada));
+        posicionesPosibles.addAll(obtenerPosicionesPosiblesDiagonales(filaDeLlegada, columnaDeLlegada));
+        return posicionesPosibles;
+    }
+
+    private ArrayList<Posicion> obtenerPosicionesPosiblesDiagonales(Integer filaDeLlegada, Integer columnaDeLlegada) throws ExcepcionUbicacionFueraDeRango {
+        ArrayList<Posicion> posicionesPosibleDiagonales = new ArrayList<>();
+
+        for (int h = 1; filaDeLlegada > 8 || columnaDeLlegada <= 0; h++) {
+            posicionesPosibleDiagonales.add(new Posicion(filaDeLlegada + h, columnaDeLlegada + h));
+            filaDeLlegada++;
+            columnaDeLlegada++;
+        }
+
+        for (int h = 1; filaDeLlegada <= 0 || columnaDeLlegada > 8; h--) {
+            posicionesPosibleDiagonales.add(new Posicion(filaDeLlegada - h, columnaDeLlegada - h));
+            filaDeLlegada++;
+            columnaDeLlegada++;
+        }
+
+        for (int h = 1; filaDeLlegada > 8 || columnaDeLlegada <= 0; h++) {
+            posicionesPosibleDiagonales.add(new Posicion(filaDeLlegada + h, columnaDeLlegada - h));
+            filaDeLlegada++;
+            columnaDeLlegada++;
+        }
+        for (int h = 1; filaDeLlegada > 8 || columnaDeLlegada <= 0; h++) {
+            posicionesPosibleDiagonales.add(new Posicion(filaDeLlegada - h, columnaDeLlegada + h));
+            filaDeLlegada++;
+            columnaDeLlegada++;
+        }
+        return posicionesPosibleDiagonales;
+    }
+
+    private ArrayList<Posicion> obtenerPosicionesPosiblesVerticales(Integer filaDeLlegada, Integer columnaDeLlegada) throws ExcepcionUbicacionFueraDeRango {
+        ArrayList<Posicion> posicionesPosiblesVerticales = new ArrayList<>();
+
+        for (int i = filaDeLlegada + 1; i < 8; i++) {
+            posicionesPosiblesVerticales.add(new Posicion(i, columnaDeLlegada));
+        }
+
+        for (int i = filaDeLlegada - 1; i >= 0; i--) {
+            posicionesPosiblesVerticales.add(new Posicion(i, columnaDeLlegada));
+        }
+
+        return posicionesPosiblesVerticales;
+    }
+
+
+    private ArrayList<Posicion> obtenerPosicionesPosiblesHorizontales(Integer filaDeLlegada, Integer columnaDeLlegada) throws ExcepcionUbicacionFueraDeRango {
+        ArrayList<Posicion> posicionesIntermediasHorizontales = new ArrayList<>();
+
+        for (int i = columnaDeLlegada + 1; i < 8; i++) {
+            posicionesIntermediasHorizontales.add(new Posicion(filaDeLlegada, i));
+        }
+
+        for (int i = columnaDeLlegada - 1; i >= 0; i--) {
+            posicionesIntermediasHorizontales.add(new Posicion(filaDeLlegada, i));
+        }
+        return posicionesIntermediasHorizontales;
+    }

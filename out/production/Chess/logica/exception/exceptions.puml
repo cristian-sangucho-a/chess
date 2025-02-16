@@ -1,0 +1,30 @@
+@startumlasi?
+'https://plantuml.com/class-diagram
+
+class ExcepcionAjedrez{}
+class ExcepcionAtravesarPiezas{}
+class ExcepcionAutoAtaque{}
+class ExcepcionDeTurno{}
+class ExcepcionInexistenciaDeUnaPieza{}
+class ExcepcionEnMovimiento{}
+class ExcepcionEnMovimientoDiagonal{}
+class ExcepcionEnMovimientoEnL{}
+class ExcepcionEnMovimientoHorizontal{}
+class ExcepcionEnMovimientoVertical{}
+class ExcepcionMínimaMovimiento{}
+
+
+ExcepcionEnMovimiento <|-- ExcepcionEnMovimientoDiagonal
+ExcepcionEnMovimiento <|-- ExcepcionEnMovimientoHorizontal
+ExcepcionEnMovimiento <|-- ExcepcionEnMovimientoVertical
+ExcepcionEnMovimiento <|-- ExcepcionEnMovimientoEnL
+
+ExcepcionMínimaMovimiento <|-- ExcepcionInexistenciaDeUnaPieza
+ExcepcionMínimaMovimiento <|-- ExcepcionAutoAtaque
+ExcepcionMínimaMovimiento <|-- ExcepcionAtravesarPiezas
+ExcepcionMínimaMovimiento <|-- ExcepcionDeTurno
+
+ExcepcionAjedrez <|-- ExcepcionMínimaMovimiento
+ExcepcionAjedrez <|-- ExcepcionEnMovimiento
+ExcepcionAjedrez <|-- ExcepcionUbicacionFueraDeRango
+@enduml

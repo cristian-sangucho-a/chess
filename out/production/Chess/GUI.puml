@@ -1,0 +1,11 @@
+@startuml
+class MainMenu{}
+class SubMenuIngresoDeNombre{}
+class CeldaGUI{}
+class TableroGUI{}
+
+
+MainMenu --> SubMenuIngresoDeNombre
+SubMenuIngresoDeNombre --> TableroGUI
+TableroGUI -->"[n][n]" CeldaGUI
+@enduml
